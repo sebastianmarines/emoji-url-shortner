@@ -35,7 +35,7 @@ defmodule Cutme.Links do
       ** (Ecto.NoResultsError)
 
   """
-  def get_url!(id), do: Repo.get!(Url, id)
+  def get_url!(short_url), do: Repo.get_by!(Url, short_url: short_url)
 
   @doc """
   Creates a url.
@@ -55,50 +55,11 @@ defmodule Cutme.Links do
     |> Repo.insert()
   end
 
-  @doc """
-  Updates a url.
-
-  ## Examples
-
-      iex> update_url(url, %{field: new_value})
-      {:ok, %Url{}}
-
-      iex> update_url(url, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_url(%Url{} = url, attrs) do
-    url
-    |> Url.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a url.
-
-  ## Examples
-
-      iex> delete_url(url)
-      {:ok, %Url{}}
-
-      iex> delete_url(url)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_url(%Url{} = url) do
-    Repo.delete(url)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking url changes.
-
-  ## Examples
-
-      iex> change_url(url)
-      %Ecto.Changeset{data: %Url{}}
-
-  """
-  def change_url(%Url{} = url, attrs \\ %{}) do
-    Url.changeset(url, attrs)
+  def generate_short_url(len \\ 4) do
+    Stream.repeatedly(fn -> Enum.random(Exmoji.all) end)
+    |> Enum.take(len)
+    |> Enum.map(fn char -> Map.get(char, :unified) end)
+    |> Enum.map(fn char -> Exmoji.unified_to_char(char) end)
+    |> Enum.reduce("", fn x, acc -> acc <> x end)
   end
 end
