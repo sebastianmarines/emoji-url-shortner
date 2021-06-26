@@ -11,4 +11,7 @@
     </div>
     <%= submit "Shorten link" %>
   <% end %>
+  <%= if @shortened_url != "" do%>
+    <%= link("http://✂🔗.ml/#{@shortened_url}", to: "http://✂🔗.ml/#{@shortened_url}") %>
+  <% end %>
 </div>
