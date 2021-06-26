@@ -49,7 +49,11 @@ defmodule Cutme.Links do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_url(attrs \\ %{}) do
+  def create_url(%Url{} = url) do
+    Url.changeset(url, %{})
+  end
+
+  def create_url(attrs) do
     url = Map.merge(attrs, generate_short_url())
 
     changeset =

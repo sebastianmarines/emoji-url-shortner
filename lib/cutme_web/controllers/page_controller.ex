@@ -2,9 +2,11 @@ defmodule CutmeWeb.PageController do
   use CutmeWeb, :controller
 
   alias Cutme.Links
+  alias Cutme.Links.Url
 
   def index(conn, _params) do
-    render(conn, "index.html")
+    changeset = Links.create_url(%Url{})
+    render(conn, "index.html", changeset: changeset)
   end
 
   def show(conn, %{"url" => url}) do
