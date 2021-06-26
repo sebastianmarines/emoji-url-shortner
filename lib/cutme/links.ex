@@ -52,18 +52,37 @@ defmodule Cutme.Links do
   def create_url(attrs \\ %{}) do
     url = Map.merge(attrs, generate_short_url())
 
-    %Url{}
-    |> Url.changeset(url)
-    |> Repo.insert()
+    changeset =
+      %Url{}
+      |> Url.changeset(url)
+      |> Repo.insert()
+
+    case changeset do
+      {:ok, _} ->
+        changeset
+
+      {:error, bad_changeset} ->
+        short_url_is_taken = Enum.any?(bad_changeset.errors, &short_url_taken?/1)
+
+        if short_url_is_taken do
+          create_url(attrs)
+        else
+          bad_changeset
+        end
+    end
   end
 
-  def generate_short_url(len \\ 4) do
-    emoji_url = Stream.repeatedly(fn -> Enum.random(Exmoji.all) end)
-    |> Enum.take(len)
-    |> Enum.map(fn char -> Map.get(char, :unified) end)
-    |> Enum.map(fn char -> Exmoji.unified_to_char(char) end)
-    |> Enum.reduce("", fn x, acc -> acc <> x end)
+  def generate_short_url do
+    emoji_url =
+      Stream.repeatedly(fn -> Enum.random(Exmoji.all()) end)
+      |> Enum.take(4)
+      |> Enum.map(fn char -> Map.get(char, :unified) end)
+      |> Enum.map(fn char -> Exmoji.unified_to_char(char) end)
+      |> Enum.reduce("", fn x, acc -> acc <> x end)
 
     Map.put(%{}, :short_url, emoji_url)
   end
+
+  def short_url_taken?({:short_url, _}), do: true
+  def short_url_taken?(_), do: false
 end
