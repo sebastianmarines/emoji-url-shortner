@@ -13,8 +13,6 @@ defmodule CutmeWeb.PageController do
     changeset = Links.create_url(%Url{})
     {:ok, url} = Links.create_url(%{link: Map.get(link, "link")})
 
-    # |> put_flash(:info, "Your emojified url is ✂🔗.ml#{url.short_url}")
-    # |> redirect(to: Routes.page_path(conn, :index))
     render(conn, "index.html", [changeset: changeset, shortened_url: url.short_url])
   end
 

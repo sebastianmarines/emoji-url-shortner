@@ -54,25 +54,29 @@ defmodule Cutme.Links do
   end
 
   def create_url(attrs) do
-    url = Map.merge(attrs, generate_short_url())
+    if !url_valid?(attrs) do
+      create_url(%{link: "http://" <> attrs.link})
+    else
+      url = Map.merge(attrs, generate_short_url())
 
-    changeset =
-      %Url{}
-      |> Url.changeset(url)
-      |> Repo.insert()
+      changeset =
+        %Url{}
+        |> Url.changeset(url)
+        |> Repo.insert()
 
-    case changeset do
-      {:ok, _} ->
-        changeset
+      case changeset do
+        {:ok, _} ->
+          changeset
 
-      {:error, bad_changeset} ->
-        short_url_is_taken = Enum.any?(bad_changeset.errors, &short_url_taken?/1)
+        {:error, bad_changeset} ->
+          short_url_is_taken = Enum.any?(bad_changeset.errors, &short_url_taken?/1)
 
-        if short_url_is_taken do
-          create_url(attrs)
-        else
-          bad_changeset
-        end
+          if short_url_is_taken do
+            create_url(attrs)
+          else
+            bad_changeset
+          end
+      end
     end
   end
 
@@ -89,4 +93,8 @@ defmodule Cutme.Links do
 
   def short_url_taken?({:short_url, _}), do: true
   def short_url_taken?(_), do: false
+
+  def url_valid?(%{link: link}) do
+    link =~ "http"
+  end
 end
