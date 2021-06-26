@@ -19,8 +19,14 @@ defmodule CutmeWeb.PageController do
   end
 
   def show(conn, %{"url" => url}) do
-    # TODO handle 404
-    %{link: link} = Links.get_url!(url)
-    redirect(conn, external: link)
+    try do
+      %{link: link} = Links.get_url!(url)
+      redirect(conn, external: link)
+    rescue
+      _ in Ecto.NoResultsError ->
+        conn
+        |> put_flash(:error, "This link does not exist")
+        |> redirect(to: Routes.page_path(conn, :index))
+    end
   end
 end

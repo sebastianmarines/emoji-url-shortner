@@ -4,7 +4,6 @@
 </section>
 
 <div class="container">
-  <%# TODO change path %>
   <%= form_for @changeset, Routes.page_path(@conn, :create), fn f -> %>
     <div>
       <%= text_input f, :link, placeholder: "Link" %>
