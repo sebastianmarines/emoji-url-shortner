@@ -11,9 +11,7 @@
   <body>
     <header>
       <section class="container logo">
-        <a href="https://✂🔗.ml/">
-          <h1>✂🔗.ml</h1>
-        </a>
+        <%= link(raw("<h1>✂🔗.ml</h1>"), to: Routes.page_path(@conn, :index)) %>
       </section>
     </header>
     <main role="main" class="container">
