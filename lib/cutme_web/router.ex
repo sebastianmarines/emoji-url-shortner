@@ -17,6 +17,7 @@ defmodule CutmeWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    post "/", PageController, :create
     get "/:url", PageController, :show
   end
 
