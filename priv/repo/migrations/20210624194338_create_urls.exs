@@ -10,6 +10,5 @@ defmodule Cutme.Repo.Migrations.CreateUrls do
     end
 
     create unique_index(:urls, [:short_url])
-
   end
 end

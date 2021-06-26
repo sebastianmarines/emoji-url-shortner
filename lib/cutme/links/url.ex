@@ -2,7 +2,9 @@ defmodule Cutme.Links.Url do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @regex Regex.compile!("^(https?:\/\/)?([\da-z\.-]+\.[a-z\.]{2,6}|[\d\.]+)([\/:?=&#]{1}[\da-z\.-]+)*[\/\?]?$")
+  @regex Regex.compile!(
+           "^(https?:\/\/)?([\da-z\.-]+\.[a-z\.]{2,6}|[\d\.]+)([\/:?=&#]{1}[\da-z\.-]+)*[\/\?]?$"
+         )
 
   schema "urls" do
     field :link, :string
