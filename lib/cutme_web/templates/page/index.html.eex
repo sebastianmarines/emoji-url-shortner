@@ -8,7 +8,8 @@
 <div class="container text-center mt-6">
   <%= if @shortened_url != "" do%>
     <p class="text-lg">
-      <span class="bg-green-500 rounded p-2 text-white">Your emojified link 🔥:</span> <%= link("http://✂🔗.ml/#{@shortened_url}", to: "http://✂🔗.ml/#{@shortened_url}") %>
+      <%# TODO Copy link on click %>
+      🔥 Your emojified link: <span class="font-bold bg-blue-300 p-3 rounded"><%= link("✂🔗.ml/#{@shortened_url}", to: "http://✂🔗.ml/#{@shortened_url}") %></span>
     </p>
   <% end %>
 </div>
