@@ -12,13 +12,21 @@
 
 <body>
   <header>
-    <section class="container logo">
-      <%= link(raw("<h1>✂🔗.ml</h1>"), to: Routes.page_path(@conn, :index)) %>
-    </section>
+    <div class="container mx-auto content-center py-10 text-center">
+      <h1 class="text-5xl">
+        <%= link("✂🔗.ml", to: Routes.page_path(@conn, :index)) %>
+      </h1>
+    </div>
   </header>
   <main role="main" class="container">
-    <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-    <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <div class="flex justify-center mb-4">
+      <%= if get_flash(@conn, :info) do %>
+        <div class="text-center rounded bg-blue-500 text-white py-5 shadow-lg w-3/5" role="alert"><%= get_flash(@conn, :info) %></div>
+      <% end %>
+      <%= if get_flash(@conn, :error) do %>
+        <div class="text-center rounded bg-red-500 text-white py-5 shadow-lg w-3/5" role="alert"><%= get_flash(@conn, :error) %></div>
+      <% end %>
+    </div>
     <%= @inner_content %>
   </main>
 </body>

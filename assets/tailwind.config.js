@@ -5,7 +5,13 @@ module.exports = {
     '../lib/**/*.eex',
     './js/**/*.js'
   ],
-  theme: {},
+  theme: {
+    container: {
+      center: true,
+    },
+  },
   variants: {},
-  plugins: []
+  plugins: [
+    require('@tailwindcss/forms'),
+  ]
 };

@@ -1,14 +1,7 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace of mind from prototype to production</p>
-</section>
-
-<div class="container">
+<div class="container text-center">
   <%= form_for @changeset, Routes.page_path(@conn, :create), fn f -> %>
-    <div>
-      <%= text_input f, :link, placeholder: "Link" %>
-    </div>
-    <%= submit "Shorten link" %>
+    <%= text_input f, :link, placeholder: "Link", class: "w-3/4 rounded" %>
+    <%= submit "Shorten link", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 md:mt-0" %>
   <% end %>
   <%= if @shortened_url != "" do%>
     <%= link("http://✂🔗.ml/#{@shortened_url}", to: "http://✂🔗.ml/#{@shortened_url}") %>
