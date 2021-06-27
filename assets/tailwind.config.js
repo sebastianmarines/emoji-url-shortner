@@ -9,6 +9,9 @@ module.exports = {
     container: {
       center: true,
     },
+    fontFamily: {
+      sans: ['Roboto', 'sans-serif']
+    },
   },
   variants: {},
   plugins: [
