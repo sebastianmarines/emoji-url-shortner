@@ -6,14 +6,14 @@ defmodule CutmeWeb.PageController do
 
   def index(conn, _params) do
     changeset = Links.create_url(%Url{})
-    render(conn, "index.html", [changeset: changeset, shortened_url: ""])
+    render(conn, "index.html", changeset: changeset, shortened_url: "")
   end
 
   def create(conn, %{"url" => link}) do
     changeset = Links.create_url(%Url{})
     {:ok, url} = Links.create_url(%{link: Map.get(link, "link")})
 
-    render(conn, "index.html", [changeset: changeset, shortened_url: url.short_url])
+    render(conn, "index.html", changeset: changeset, shortened_url: url.short_url)
   end
 
   def show(conn, %{"url" => url}) do
