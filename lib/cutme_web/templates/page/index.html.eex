@@ -16,12 +16,13 @@
 <div class="container text-center">
   <%= form_for @changeset, Routes.page_path(@conn, :create), fn f -> %>
     <%= text_input f, :link, placeholder: "Long URL 👎🙄", class: "w-3/4 rounded" %>
+    <% error_tag f, :link %>
     <%= submit "Emojify link 😎", class: "shadow-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 md:mt-0" %>
   <% end %>
 </div>
 
 <div class="container text-center mt-6">
-  <%= if @shortened_url != "" do%>
+  <%= if assigns[:shortened_url] do%>
     <p class="text-lg">
       <%# TODO Copy link on click %>
       🔥 Your emojified link: <span class="font-bold bg-blue-300 p-3 rounded"><%= link("✂🔗.ml/#{@shortened_url}", to: "http://✂🔗.ml/#{@shortened_url}") %></span>
