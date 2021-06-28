@@ -11,13 +11,6 @@
 </head>
 
 <body class="bg-gray-50">
-  <header>
-    <div class="container mx-auto content-center py-10 text-center">
-      <h1 class="text-5xl">
-        <%= link("✂🔗.ml", to: Routes.page_path(@conn, :index)) %>
-      </h1>
-    </div>
-  </header>
   <main role="main" class="container">
     <div class="flex justify-center mb-4">
       <%= if get_flash(@conn, :info) do %>
